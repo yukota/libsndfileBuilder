@@ -1,0 +1,7 @@
+name = "libsendfileBuilder"
+uuid = "1860e322-140f-11e9-30a8-f30b1ec60c27"
+authors = ["YuK_Ota <whitenightwinter@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+BinaryBuilder = "12aac903-9f7c-5d81-afc2-d9565ea332ae"
