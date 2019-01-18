@@ -1,8 +1,8 @@
 language: julia
 os:
-  - linux
+- linux
 julia:
-  - 1.0
+- 1.0
 notifications:
   email: false
 git:
@@ -10,17 +10,23 @@ git:
 cache:
   timeout: 1000
   directories:
-    - downloads
+  - downloads
 env:
   global:
-    - BINARYBUILDER_DOWNLOADS_CACHE=downloads
-    - BINARYBUILDER_AUTOMATIC_APPLE=false
+  - BINARYBUILDER_DOWNLOADS_CACHE=downloads
+  - BINARYBUILDER_AUTOMATIC_APPLE=false
 sudo: required
-
-# Before anything else, get the latest versions of things
 before_script:
-  - julia -e 'using Pkg; pkg"add BinaryProvider"; pkg"add BinaryBuilder#master"; Pkg.build()'
-
+- julia -e 'using Pkg; pkg"add BinaryProvider"; pkg"add BinaryBuilder#master"; Pkg.build()'
 script:
-  - julia build_tarballs.jl
-
+- julia build_tarballs.jl
+deploy:
+  provider: releases
+  api_key:
+    secure: i2yo/tfuhoj32R+zq9o113IYxTyUQgwCDRQufUbLogOw/L+Ld0qdsezvSjREzRvUt33KdmN0fj32So90woIncbV4B7ggsdVNsW+GZmNI532R1ZpSIevKIYdcma5k/ocOoIa4nNk/ymzWoV/Ps9w2t/W5aO3dkmpIZ02pyk4hfEDgpUL9Y6TX/Ze/LjwYFBSCoyyypmNGiebNZ4UxO+Vp3Vf/F/BaGmwItdEkhJTZY4il6CmXT8/VQtuGX/+vk1+cddDJJiECapf75EK9q3v1xHyCvR2jnRj93rJsoOSqh9C0MJbVpufWajrA8I9u1UcFKmuE1jFNQNTzBZyiGiWuK7e88/ij94KJFhs5VikeIP1DmZC+hIQsO7+UkXFny/zExQaw2tAa1yXd6Mz4Gufwu88ovRVuzZMJpf+JASbzE3Dc1sxcSWoRxd5pPjFg55Sr9uw7K1+dwuSWRHK4y+dnEtLnz+f55yu4/cw8+tVHVtTA3IqfLQVxeK46GDwPpSet5knzy5BdrB5wsbu9h0b/W6fHM7bCZN5H/WNsaKdAolVchtMt/r3w0TorVwKXnO/aNHHneGeM/rRyapDfyz9OIYUX6WAMzm8I8JRZ1QCKVi0vCzJu7VecCFy8eZL1KgmYV6hapFnP8AcuWfQKjs1KRG8e83cL40WZnSrT5T9vlpI=
+  file_glob: true
+  file: products/*
+  skip_cleanup: true
+  on:
+    repo: yukota/libsndfileBuilder
+    tags: true
